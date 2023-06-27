@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
 
-# Author Hunter Seitz
+# Author: Hunter Seitz
 # Copyright 2023
 
 def rename_files():
