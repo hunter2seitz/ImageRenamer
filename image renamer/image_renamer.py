@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import filedialog
+from tkinter import messagebox
 
 # Author Hunter Seitz
 # Copyright 2023
@@ -26,10 +27,10 @@ def rename_files(directory):
             counter += 1
 
         entry.delete(0, tk.END)
-        status_label.configure(text='Files renamed successfully!')
+        messagebox.showinfo("Success", "Files renamed successfully!")
 
     except Exception as e:
-        status_label.configure(text=f"Error: {str(e)}")
+        messagebox.showerror("Error", f"Error: {str(e)}")
 
 
 def browse_directory():
@@ -39,33 +40,37 @@ def browse_directory():
 
 
 def cancel_program():
-    root.destroy()
+    if messagebox.askyesno("Cancel", "Are you sure you want to cancel?"):
+        root.destroy()
 
 
 root = tk.Tk()
 root.title("Simple Batch Image File Renamer")
-root.geometry("450x250")
+root.geometry("450x190")
 
 # Create GUI elements
-directory_label = tk.Label(root, text="No directory selected", wraplength=400)
-directory_label.pack(pady=10)
+directory_frame = tk.Frame(root)
+directory_frame.pack(pady=10)
 
-browse_button = tk.Button(root, text="Browse", justify= "right", command=browse_directory)
-browse_button.pack(pady=10)
+directory_label = tk.Label(directory_frame, text="No directory selected", wraplength=400)
+directory_label.pack(side=tk.LEFT)
 
-entry_label = tk.Label(root, text="Enter prefix for file names:")
-entry_label.pack()
+browse_button = tk.Button(directory_frame, text="Browse", command=browse_directory)
+browse_button.pack(side=tk.LEFT, padx=(10, 0))
 
-entry = tk.Entry(root)
-entry.pack(pady=10)
+entry_frame = tk.Frame(root)
+entry_frame.pack()
 
-rename_button = tk.Button(root, text="Rename Files", command=lambda: rename_files(directory_label.cget("text")))
+entry_label = tk.Label(entry_frame, text="Enter prefix for file names:")
+entry_label.pack(side=tk.LEFT)
+
+entry = tk.Entry(entry_frame)
+entry.pack(side=tk.LEFT, padx=(20, 0))
+
+rename_button = tk.Button(root, text="Rename Files", height= 2, width= 30, command=lambda: rename_files(directory_label.cget("text")))
 rename_button.pack(pady=10)
 
 cancel_button = tk.Button(root, text="Cancel", height= 1, width= 30, command=cancel_program)
 cancel_button.pack(pady=10)
-
-status_label = tk.Label(root, text="")
-status_label.pack()
 
 root.mainloop()
