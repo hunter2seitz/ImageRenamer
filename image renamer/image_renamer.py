@@ -3,14 +3,20 @@ import tkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
 
-# Author Hunter Seitz
+# Author: Hunter Seitz
 # Copyright 2023
 
 def rename_files(directory):
     try:
+        if not directory:
+            raise ValueError("Please select a directory.")
+
         file_list = os.listdir(directory)
-        prefix = entry.get()
+        prefix = entry.get().strip()
         counter = 1
+
+        if not prefix:
+            raise ValueError("Please enter a prefix for file names.")
 
         image_files = [filename for filename in file_list if filename.lower().endswith(('.jpg', '.jpeg', '.png'))]
 
