@@ -2,6 +2,8 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 
+# Author Hunter Seitz
+# Copyright 2023
 
 def rename_files(directory):
     try:
@@ -41,14 +43,14 @@ def cancel_program():
 
 
 root = tk.Tk()
-root.title("Batch Image File Renamer")
-root.geometry("400x200")
+root.title("Simple Batch Image File Renamer")
+root.geometry("450x250")
 
 # Create GUI elements
 directory_label = tk.Label(root, text="No directory selected", wraplength=400)
 directory_label.pack(pady=10)
 
-browse_button = tk.Button(root, text="Browse", command=browse_directory)
+browse_button = tk.Button(root, text="Browse", justify= "right", command=browse_directory)
 browse_button.pack(pady=10)
 
 entry_label = tk.Label(root, text="Enter prefix for file names:")
@@ -60,7 +62,7 @@ entry.pack(pady=10)
 rename_button = tk.Button(root, text="Rename Files", command=lambda: rename_files(directory_label.cget("text")))
 rename_button.pack(pady=10)
 
-cancel_button = tk.Button(root, text="Cancel", command=cancel_program)
+cancel_button = tk.Button(root, text="Cancel", height= 1, width= 30, command=cancel_program)
 cancel_button.pack(pady=10)
 
 status_label = tk.Label(root, text="")
