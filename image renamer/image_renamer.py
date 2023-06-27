@@ -3,14 +3,16 @@ import tkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
 
-# Author: Hunter Seitz
+# Author Hunter Seitz
 # Copyright 2023
 
-def rename_files(directory):
-    try:
-        if not directory:
-            raise ValueError("Please select a directory.")
+def rename_files():
+    directory = directory_label.cget("text")
+    if not directory:
+        messagebox.showerror("Error", "Please select a directory.")
+        return
 
+    try:
         file_list = os.listdir(directory)
         prefix = entry.get().strip()
         counter = 1
@@ -50,9 +52,20 @@ def cancel_program():
         root.destroy()
 
 
+# Create the main window
 root = tk.Tk()
 root.title("Simple Batch Image File Renamer")
-root.geometry("450x190")
+
+# Calculate the window position for centering
+window_width = 450
+window_height = 190
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+x_position = int((screen_width / 2) - (window_width / 2))
+y_position = int((screen_height / 2) - (window_height / 2))
+
+# Set the window geometry and position
+root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
 # Create GUI elements
 directory_frame = tk.Frame(root)
@@ -71,9 +84,9 @@ entry_label = tk.Label(entry_frame, text="Enter prefix for file names:")
 entry_label.pack(side=tk.LEFT)
 
 entry = tk.Entry(entry_frame)
-entry.pack(side=tk.LEFT, padx=(20, 0))
+entry.pack(side=tk.LEFT, padx=(10, 0))
 
-rename_button = tk.Button(root, text="Rename Files", height= 2, width= 30, command=lambda: rename_files(directory_label.cget("text")))
+rename_button = tk.Button(root, text="Rename Files", height= 2, width= 30, command=rename_files)
 rename_button.pack(pady=10)
 
 cancel_button = tk.Button(root, text="Cancel", height= 1, width= 30, command=cancel_program)
