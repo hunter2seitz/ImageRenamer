@@ -2,9 +2,11 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
+from tkinter.font import Font
 
 # Author: Hunter Seitz
 # Copyright 2023
+# Version 1.05
 
 def rename_files():
     directory = directory_label.cget("text")
@@ -56,9 +58,12 @@ def cancel_program():
 root = tk.Tk()
 root.title("Simple Batch Image File Renamer")
 
+# Set the font
+font = Font(family="Arial", size=12)
+
 # Calculate the window position for centering
-window_width = 450
-window_height = 190
+window_width = 480
+window_height = 200
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 x_position = int((screen_width / 2) - (window_width / 2))
@@ -71,25 +76,25 @@ root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 directory_frame = tk.Frame(root)
 directory_frame.pack(pady=10)
 
-directory_label = tk.Label(directory_frame, text="No directory selected", wraplength=400)
+directory_label = tk.Label(directory_frame, text="No directory selected", wraplength=400, font=font)
 directory_label.pack(side=tk.LEFT)
 
-browse_button = tk.Button(directory_frame, text="Browse", command=browse_directory)
-browse_button.pack(side=tk.LEFT, padx=(10, 0))
+browse_button = tk.Button(directory_frame, text="Browse", command=browse_directory, font=font)
+browse_button.pack(side=tk.LEFT, padx=(10, 0), pady=15)
 
 entry_frame = tk.Frame(root)
 entry_frame.pack()
 
-entry_label = tk.Label(entry_frame, text="Enter prefix for file names:")
+entry_label = tk.Label(entry_frame, text="Enter prefix for file names:", font=font)
 entry_label.pack(side=tk.LEFT)
 
 entry = tk.Entry(entry_frame)
-entry.pack(side=tk.LEFT, padx=(10, 0))
+entry.pack(side=tk.LEFT, padx=(10, 10))
 
-rename_button = tk.Button(root, text="Rename Files", height= 2, width= 30, command=rename_files)
+rename_button = tk.Button(root, text="Rename Files", height= 2, width= 30, command=rename_files, font=font)
 rename_button.pack(pady=10)
 
-cancel_button = tk.Button(root, text="Cancel", height= 1, width= 30, command=cancel_program)
+cancel_button = tk.Button(root, text="Cancel", height= 1, width= 30, command=cancel_program, font=font)
 cancel_button.pack(pady=10)
 
 root.mainloop()
